@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
@@ -40,8 +39,9 @@ public class BurrowsWheeler {
     // apply Burrows-Wheeler decoding, reading from standard input and writing
     // to standard output
     public static void decode() {
-        int first = BinaryStdIn.readInt();
-        System.out.println("1st: " + first);
+        // int first =
+        BinaryStdIn.readInt();
+        // System.out.println("1st: " + first);
 
         ArrayList<Integer> al = new ArrayList<Integer>();
 
@@ -49,17 +49,49 @@ public class BurrowsWheeler {
             al.add(BinaryStdIn.readInt(8));
         }
 
-        al.stream().forEach(System.out::println);
+        // al.stream().forEach(System.out::println);
 
         int length = al.size();
-        Integer[] next = new Integer[length];
         Integer[] t = new Integer[length];
         t = al.toArray(t);
 
-        Integer[] col1 = new Integer[length];
-        col1 = al.toArray(col1);
+        int[] freq = new int[256 + 1];
 
-        Arrays.sort(col1);
+        for (int i = 0; i < length; i++) {
+            freq[t[i] + 1]++;
+        }
+
+        for (int i = 0; i < 256; i++) {
+            freq[i + 1] += freq[i]; // cumulates
+        }
+
+        // for (int i = 0; i < length; i++) {
+        // System.out.println(t[i] + "->" + freq[t[i]]);
+        // }
+
+        int[] next = new int[length];
+
+        for (int i = 0; i < length; i++) {
+            freq[t[i]]++;
+            next[i] = freq[t[i]];
+            // System.out.println(next[i]);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int r = 1;
+        for (int i = length - 2; i >= 0; i--) {
+            // System.out.println("r= "+r);
+            int c = t[r - 1];
+            sb.insert(0, (char) c);
+            r = next[r - 1];
+        }
+        sb.append((char) (int) t[r - 1]);
+
+        // System.out.println(sb.toString());
+
+        BinaryStdOut.write(sb.toString());
+        BinaryStdOut.flush();
+        BinaryStdOut.close();
 
     }
 
@@ -74,7 +106,8 @@ public class BurrowsWheeler {
         case '+':
             decode();
             break;
-
+        default:
+            return;
         }
     }
 }

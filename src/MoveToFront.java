@@ -49,7 +49,7 @@ public class MoveToFront {
             BinaryStdOut.write((char) c);
 
             for (int k = i; k > 0; k--) {
-                seq[k] = seq[k-1];
+                seq[k] = seq[k - 1];
             }
             seq[0] = c;
 
@@ -69,7 +69,8 @@ public class MoveToFront {
         case '+':
             decode();
             break;
-
+        default:
+            return;
         }
 
     }

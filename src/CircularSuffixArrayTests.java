@@ -37,5 +37,17 @@ public class CircularSuffixArrayTests {
             assertEquals(expected[i], target.index(i));
         }
     }
+    @Test
+    public void testEmptyString() {
+        String s = "";
 
+        CircularSuffixArray target = new CircularSuffixArray(s);
+        
+        int[] expected = {0};
+        
+        int length = s.length();
+        for (int i=0; i<length; i++) {
+            assertEquals(expected[i], target.index(i));
+        }
+    }
 }

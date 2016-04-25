@@ -37,7 +37,7 @@ public class CircularSuffixArray {
     }
 
     private void checkNullOrEmpty(String s) {
-        if (s == null || s.trim().length() == 0) {
+        if (s == null) {
             throw new java.lang.NullPointerException();
         }
     }
