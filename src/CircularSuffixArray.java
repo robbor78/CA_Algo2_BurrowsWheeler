@@ -30,7 +30,8 @@ public class CircularSuffixArray {
             ws[i] = new StringWrapper(s, i);
         }
 
-        Arrays.sort(ws);
+        RadixQuickSort.sort(ws);
+        //Arrays.sort(ws);
 
         indices = Arrays.stream(ws).mapToInt(x -> x.offset()).toArray();
 
